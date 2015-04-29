@@ -1,0 +1,9 @@
+<%= form_tag 'readings/getreadings', :method => 'get' do %>
+  <p>
+    <%= text_field_tag :name, params[:name], size: 10 %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+<p>
+	<h2>test</h2>
+</p>

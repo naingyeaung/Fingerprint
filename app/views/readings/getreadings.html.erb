@@ -1,0 +1,22 @@
+<p>
+	<h1><%= params[:name]%></h1>
+	<h1>Products</h1>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Time logged on</th>
+      </tr>
+      <% @data.each do |reading| %>
+        <tr>
+          <td><%= reading.name %></td>
+          <td><%= reading.time %></td>
+        </tr>
+      <% end %>
+    </table>
+	<%#data.each do |reading| %>
+	  <%#div class="reading">
+	  	<p class="data-content"><%= data.content %></p>
+	  <%#/div>
+    <% end %>
+</p>
