@@ -1,9 +1,13 @@
-<%= form_tag 'readings/getreadings', :method => 'get' do %>
+<h1>Employee log-in Central</h1>
+<p id="success"><%= flash[:success] %></p>
+<%= form_tag reading_path, :method => 'get' do %>
   <p>
-    <%= text_field_tag :name, params[:name], size: 10 %>
+    <%= text_field_tag :name, params[:id], size: 10 %>
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
-<p>
-	<h2>test</h2>
-</p>
+<%= form_tag 'readings/createreadings', :method => 'post' do %>
+  <p>
+    <%= submit_tag "Create new User", :name => nil %>
+  </p>
+<% end %>

@@ -1,29 +1,35 @@
 class ReadingsController < ApplicationController
 	def user_params
-	    params.require(:reading).permit(:name, :time)
+	    params.require(:reading).permit(:name, :user_id, :time)
 	end
-
-	def getreadings
-		@created_data = Reading.new()
-		#@created_data.id = 1.0
-		@created_data.name = 'Naing'
-		@created_data.time = DateTime.current()
-		@created_data.save
+    def new
+    	@reading = Reading.new
+    end
+    def index
+    	@readings = Reading.all
+    end
+	def show
 		#name_person = 'params[:name]'
-		name_person = 'Naing'
+		name_person = params[:id]
 		@data = Reading.search(name_person)
+		@new_data = Reading.new
 
 		#name_person = Reading.search(params[:name])
 		
 		#grab all the data regarding the person if it exists: date, time logged in, time logged out.
 		#if not, direct to the prev url, saying the person does not exist.
 	end
-	def createreadings
-        user_params()
-		if params[:reading].present? && !params[:reading].nil?
-			@reading = Reading.new(params[:reading])
-	        @reading.save
+	def create
+        @reading = Reading.create(user_params)
+        #@reading.user_id = params[:user_id]
+		#@reading.name = params[:name]
+		@reading.time = DateTime.current()
+		if @reading.save and @reading.user_id != nil
+			flash[:success] = "Successful"
+			redirect_to readings_path
+		else
+			render action: "new"
+			#redirect_to "readings/createreadings"
 		end
-		redirect_to @reading
 	end
 end

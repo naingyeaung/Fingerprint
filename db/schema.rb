@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20150429033523) do
 
   create_table "readings", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.datetime "time"
     t.datetime "created_at"

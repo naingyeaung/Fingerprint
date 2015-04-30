@@ -53,8 +53,9 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  root :to=>"pages#index"
-  match "/server_post", :to => "server_requests#server_post", :via => "post"
-  get 'readings/getreadings' => 'readings#getreadings', as: :readings
-  post 'readings/createreadings' => 'articles#createreadings', as: :createreadings
+  root :to=>"readings#index"
+  #match "/server_post", :to => "server_requests#server_post", :via => "post"
+  resources :readings
+  #get 'readings/getreadings' => 'readings#getreadings', as: :readings
+  #post 'readings/create' => 'readings#create', as: :create
 end

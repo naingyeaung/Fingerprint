@@ -1,0 +1,10 @@
+<h1>Employee log-in Central</h1>
+<p id="success"><%= flash[:success] %></p>
+<% @readings.each do |reading| %>
+<p>
+    <tr>
+        <td><%= reading.name %></td>
+    </tr>
+</p>
+<% end %>
+<%= link_to 'Add New User', new_reading_path %>
