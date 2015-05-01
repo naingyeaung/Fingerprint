@@ -4,6 +4,8 @@
 <p>
     <tr>
         <td><%= reading.name %></td>
+        <td><%= reading.user_id %></td>
+        <td><%= Reading.search(reading.user_id).name %></td>
     </tr>
 </p>
 <% end %>

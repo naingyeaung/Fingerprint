@@ -13,23 +13,18 @@ class ReadingsController < ApplicationController
 		name_person = params[:id]
 		@data = Reading.search(name_person)
 		@new_data = Reading.new
-
-		#name_person = Reading.search(params[:name])
-		
-		#grab all the data regarding the person if it exists: date, time logged in, time logged out.
-		#if not, direct to the prev url, saying the person does not exist.
 	end
 	def create
-        @reading = Reading.create(user_params)
-        #@reading.user_id = params[:user_id]
-		#@reading.name = params[:name]
+        @reading = Reading.new(user_params)
 		@reading.time = DateTime.current()
-		if @reading.save and @reading.user_id != nil
+		if @reading.user_id != nil and !Reading.search(@reading.user_id)
+			@reading.save
 			flash[:success] = "Successful"
 			redirect_to readings_path
 		else
+			@reading = Reading.new
+			flash[:fail] = "duplicate"
 			render action: "new"
-			#redirect_to "readings/createreadings"
 		end
 	end
 end
