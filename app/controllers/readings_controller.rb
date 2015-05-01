@@ -6,7 +6,10 @@ class ReadingsController < ApplicationController
     	@reading = Reading.new
     end
     def index
-    	@readings = Reading.all
+    	@readings = Reading.search(params[:search])
+    end
+    def edit
+    	redirect_to readings_path
     end
 	def show
 		#name_person = 'params[:name]'
@@ -17,7 +20,8 @@ class ReadingsController < ApplicationController
 	def create
         @reading = Reading.new(user_params)
 		@reading.time = DateTime.current()
-		if @reading.user_id != nil and !Reading.search(@reading.user_id)
+		potential_matching_data = Reading.search(@reading.user_id)
+		if @reading.user_id != nil and ((potential_matching_data.length == 0) or (potential_matching_data.name == @reading.name))
 			@reading.save
 			flash[:success] = "Successful"
 			redirect_to readings_path
@@ -27,4 +31,17 @@ class ReadingsController < ApplicationController
 			render action: "new"
 		end
 	end
+    def newtime
+    	redirect_to "/reading/index"
+
+    	@reading = Reading.new(user_params)
+    	@reading.time = DateTime.current()
+
+    	if @reading.save
+    		flash[:success] = "Successful"
+    	else
+    		flash[:success] = "fail"
+        end
+
+    end
 end

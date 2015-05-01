@@ -54,8 +54,9 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root :to=>"readings#index"
-  #match "/server_post", :to => "server_requests#server_post", :via => "post"
+  match "/server_post", :to => "server_requests#server_post", :via => "post"
   resources :readings
+  #post '/readings/newtime/:id' => 'readings#newtime'
   #get 'readings/getreadings' => 'readings#getreadings', as: :readings
   #post 'readings/create' => 'readings#create', as: :create
 end

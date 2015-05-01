@@ -1,12 +1,30 @@
-<h1>Employee log-in Central</h1>
+<h1>Employee Check Central</h1>
 <p id="success"><%= flash[:success] %></p>
-<% @readings.each do |reading| %>
-<p>
-    <tr>
-        <td><%= reading.name %></td>
-        <td><%= reading.user_id %></td>
-        <td><%= Reading.search(reading.user_id).name %></td>
-    </tr>
-</p>
-<% end %>
 <%= link_to 'Add New User', new_reading_path %>
+<%= form_tag(readings_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+  <%= submit_tag "Search" %>
+<% end %>
+<% if @readings.present?%>
+  <% if @readings.length > 1%>
+    <% @readings.each do |reading| %>
+    <p>
+      <tr>
+         <td><%= reading.name %></td>
+         <td><%= reading.user_id %></td>
+         <td><%= reading.time %></td>
+      </tr>
+    </p>
+    <% end %>
+  <% else %>
+    <p>
+      <tr>
+         <td><%= @readings.first.name %></td>
+         <td><%= @readings.first.user_id %></td>
+         <td><%= @readings.first.time %></td>
+      </tr>
+    </p>
+  <% end %>
+<% else %>
+  <p>There are no employees named <%= params[:search] %>.</p>
+<% end %>
